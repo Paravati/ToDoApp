@@ -2,6 +2,8 @@ from flask import Flask, g
 from flask import render_template
 import os
 import sqlite3
+from datetime import datetime
+from flask import flash, redirect, url_for, request
 
 app = Flask(__name__)
 
@@ -26,12 +28,26 @@ def close_db(error):
     if g.get('db'):
         g.db.close()
 
-@app.route('/zadania')
+@app.route('/zadania', methods=['GET', 'POST'])
 def zadania():
-    db = get_db()  # utworzenie obiektu bazy danych
+    error=None
+    if request.method=='POST':
+        zadanie = request.form['zadanie'].strip()
+        if len(zadanie) >0:
+            zrobione = '0'
+            data_dodania = datetime.now()
+            db = get_db()  # utworzenie obiektu bazy danych
+            db.execute('INSERT INTO zadania VALUES (?, ?, ?, ?);',
+                       [None, zadanie, zrobione, data_dodania])
+            db.commit()
+            flash('Dodano nowe zadanie.')
+            return redirect(url_for('zadania'))
+        error= 'Nie możesz dodać pustego zadania'  # komunikat o błędzie
+
+    db = get_db()
     kursor = db.execute('SELECT * FROM zadania ORDER BY data_dodania DESC;')
     zadania = kursor.fetchall()  #fetchall zwraca dane w formie listy
-    return render_template('zadania.html', zadania=zadania)
+    return render_template('zadania.html', zadania=zadania, error=error)
 
 @app.route('/')
 def index():
