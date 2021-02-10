@@ -1,4 +1,4 @@
-#Simple ToDo application 
+# Simple ToDo application 
 
 ### Used technologies:
 - SQLite database
