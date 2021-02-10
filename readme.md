@@ -13,5 +13,5 @@
 
 ## view of the application:
 ![shot1.jpg](screenshots/shot.JPG)
-![shot1.jpg](screenshots/shot2.JPG)
-![shot1.jpg](screenshots/shot3.JPG)
+![shot2.jpg](screenshots/shot2.JPG)
+![shot3.jpg](screenshots/shot3.JPG)
