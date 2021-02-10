@@ -1,0 +1,67 @@
+body{
+    margin-top: 30px;
+    background-color: #ebad85;
+}
+
+h1 {
+    margin-left: 50px;
+    font-size: 50px;
+    font-family: Monotype corsiva;
+}
+
+p {
+    margin-left: 60px;
+    font-size: 20px;
+    font-family: Monotype corsiva;
+}
+
+
+.add-for{
+    margin-left: 30px;
+}
+
+ol{
+    text-align: left;
+}
+
+em{
+    font-size: 12px;
+    margin-left: 15px;
+}
+
+form{
+    display: inline-block;
+    margin-bottom: 0;
+}
+
+input[name="zadanie"]{
+    width: 300px;
+}
+
+input[name="zadanie"]:focus{
+    border-color:blue;
+    border-radius: 5px;
+}
+
+li{
+    margin-bottom: 5px;
+}
+
+button{
+    padding:3px 5px;
+    cursor: pointer;
+    color:black;
+    font-size: 13px/1.5em;
+    background:white;
+    border: 1px solid grey;
+}
+
+.error{
+    color:red;
+}
+.success{
+    color: green;
+}
+.done{
+    text-decoration: line-through;
+}
