@@ -26,8 +26,23 @@
 
     <ol>
         {% for zadanie in zadania %}
-            <li> {{zadanie.zadanie}} - <em> {{zadanie.data_dodania}}</em></li>
-        {% endfor %}
+            <li>
+                <!--wyroznienie zadan zakonczonych-->
+                {% if zadanie.zrobione %}
+                    <span class="done">{{ zadanie.zadanie}}- <em> {{zadanie.data_dodania}}</em></span>
+                {% else %}
+                    {{zadanie.zadanie}} - <em> {{zadanie.data_dodania}}</em>
+                {% endif %}
+                <!-- formularz zmiany statusu zadania-->
+                {% if not zadanie.zrobione %}
+                    <form method="POST" action="{{ url_for('zrobione') }}">
+                      <!-- wysyłamy jedynie informacje o id zadania -->
+                      <input type="hidden" name="id" value="{{ zadanie.id }}"/>
+                      <button type="submit">Wykonane</button>
+                    </form>
+                {% endif %}
+            </li>
+            {% endfor %}
     </ol>
     <p><a href="{{url_for('index')}}">Strona główna</a></p>
 </body>

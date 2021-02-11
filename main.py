@@ -13,6 +13,7 @@ app.config.update(dict(
     SITE_NAME = 'Moje zadania'  # nazwa aplikacji
 ))
 
+
 def get_db():
     '''Tworzenie połączenia z bazą danych'''
     if not g.get('db'):  # jezeli brak połączenia to je tworzymy
@@ -27,6 +28,7 @@ def close_db(error):
     '''Zamykanie połączenia z bazą'''
     if g.get('db'):
         g.db.close()
+
 
 @app.route('/zadania', methods=['GET', 'POST'])
 def zadania():
@@ -49,10 +51,21 @@ def zadania():
     zadania = kursor.fetchall()  #fetchall zwraca dane w formie listy
     return render_template('zadania.html', zadania=zadania, error=error)
 
+
 @app.route('/')
 def index():
     # return 'Cześć, tu Python!'
     return render_template('index.html')
+
+
+@app.route('/zrobione', methods=['POST'])
+def zrobione():  # zmiana statusu zadania na wykonane
+    zadanie_id = request.form['id']
+    db = get_db()
+    db.execute('UPDATE zadania SET zrobione=1 WHERE id=?', [zadanie_id])
+    db.commit()
+    flash('Zmieniono status zadania')
+    return redirect(url_for('zadania'))
 
 
 if __name__ == '__main__':
